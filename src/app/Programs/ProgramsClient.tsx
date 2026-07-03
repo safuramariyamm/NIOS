@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+
 import { useRef } from "react";
 import {
   ArrowDown,
@@ -19,6 +19,7 @@ import {
   Heart,
 } from "lucide-react";
 import { AnimatedDoodle } from "@/components/AnimatedDoodle";
+import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
 import { Counter } from "@/components/Counter";
 
 /* ------------------------------------------------------------------ */
@@ -86,14 +87,34 @@ const impactStats = [
 /*  Motion variants                                                    */
 /* ------------------------------------------------------------------ */
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+const fadeInUp: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+const scaleIn: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.9,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
 };
 
 const containerVariants = {
