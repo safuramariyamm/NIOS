@@ -13,8 +13,6 @@ export function MissionSection() {
       <div className="mx-auto grid max-w-7xl gap-10 rounded-[40px] border border-[#FDE9D8] bg-white p-6 shadow-[0_30px_90px_rgba(154,52,18,0.07)] lg:grid-cols-[0.95fr_1.05fr] lg:p-10">
         <motion.div initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }} className="relative overflow-hidden rounded-[32px]">
           <div aria-hidden className="absolute -inset-2 -z-10 rounded-[40px] bg-gradient-to-br from-[#F97316]/25 to-[#FBBF24]/25 blur-2xl" />
-          <AnimatedDoodle type="book" className="left-4 top-4 text-white" delay={0.3} />
-          <AnimatedDoodle type="pencil" className="bottom-6 right-4 text-white" delay={0.8} />
           <Image src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1100&q=80" alt="A caring educator guiding children through a lesson" width={1000} height={1200} className="h-full min-h-[380px] w-full rounded-[32px] object-cover" />
           <div className="absolute inset-0 rounded-[32px] bg-gradient-to-t from-[#7C2D12]/25 via-transparent to-transparent" />
         </motion.div>

@@ -21,34 +21,41 @@ const doodleMap: Record<DoodleType, ReactElement> = {
   </svg>
 ),
   rocket: (
-    <svg viewBox="0 0 96 96" className="h-full w-full fill-none" stroke="currentColor">
+    <svg viewBox="0 0 96 96" className="h-full w-full fill-none">
+      {/* Body - pink */}
       <path
         d="M52 15c13 2 23 12 25 25-8 2-17 8-25 16L40 44c8-8 14-17 16-25Z"
+        stroke="#ec4899"
         strokeWidth="3"
         strokeLinejoin="round"
       />
-      <path d="M40 44 24 49l17 6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M52 56 47 72l-6-17" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="59" cy="34" r="5" strokeWidth="3" />
-      <path d="M34 60c-7 1-13 6-16 15 9-3 14-9 15-16" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M25 67c-4 2-7 5-9 10" strokeWidth="2" strokeLinecap="round" />
-      <path d="M35 72c-2 4-5 7-10 9" strokeWidth="2" strokeLinecap="round" />
-      <path d="M73 18l5-5M79 28h7M67 12v-7" strokeWidth="2" strokeLinecap="round" />
+      {/* Left fin - orange */}
+      <path d="M40 44 24 49l17 6" stroke="#f97316" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Bottom flame trail - orange */}
+      <path d="M52 56 47 72l-6-17" stroke="#f97316" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Window - purple */}
+      <circle cx="59" cy="34" r="5" stroke="#a855f7" strokeWidth="3" />
+      {/* Side flame lines - orange */}
+      <path d="M34 60c-7 1-13 6-16 15 9-3 14-9 15-16" stroke="#f97316" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M25 67c-4 2-7 5-9 10" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
+      <path d="M35 72c-2 4-5 7-10 9" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
+      {/* Sparkle accents - blue */}
+      <path d="M73 18l5-5M79 28h7M67 12v-7" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" />
     </svg>
   ),
 pencil: (
-  <svg viewBox="0 0 80 80" className="h-full w-full fill-none" stroke="currentColor">
-    {/* Pencil body */}
-    <path d="M52 12 L68 28 L34 62 L18 66 L22 50 Z" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+  <svg viewBox="0 0 80 80" className="h-full w-full fill-none">
+    {/* Pencil body - orange */}
+    <path d="M52 12 L68 28 L34 62 L18 66 L22 50 Z" stroke="#f97316" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
     {/* Tip separation line (wood-to-graphite) */}
-    <path d="M46 18 L62 34" strokeWidth="2" strokeLinecap="round" />
+    <path d="M46 18 L62 34" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
     {/* Eraser end cap line */}
-    <path d="M22 50 L34 62" strokeWidth="2" strokeLinecap="round" />
+    <path d="M22 50 L34 62" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
   </svg>
 ),
   star: (
-    <svg viewBox="0 0 80 80" className="h-full w-full fill-none" stroke="currentColor">
-      <path d="M40 16 48 34 68 36 52 50 56 70 40 60 24 70 28 50 12 36 32 34Z" strokeWidth="2" strokeLinejoin="round" />
+    <svg viewBox="0 0 80 80" className="h-full w-full fill-none">
+      <path d="M40 16 48 34 68 36 52 50 56 70 40 60 24 70 28 50 12 36 32 34Z" stroke="#a5b4fc" strokeWidth="2" strokeLinejoin="round" />
     </svg>
   ),
   spark: (
@@ -62,10 +69,10 @@ pencil: (
     </svg>
   ),
   balloon: (
-    <svg viewBox="0 0 80 80" className="h-full w-full fill-none stroke-current">
-      <ellipse cx="40" cy="28" rx="16" ry="22" strokeWidth="2" />
-      <path d="M40 50v16" strokeWidth="2" strokeLinecap="round" />
-      <path d="M36 64c2 2 6 2 8 0" strokeWidth="2" strokeLinecap="round" />
+    <svg viewBox="0 0 80 80" className="h-full w-full fill-none">
+      <ellipse cx="40" cy="28" rx="16" ry="22" stroke="#f97316" strokeWidth="2" />
+      <path d="M40 50v16" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
+      <path d="M36 64c2 2 6 2 8 0" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
     </svg>
   ),
   smile: (
@@ -86,15 +93,15 @@ pencil: (
     </svg>
   ),
   cloud: (
-    <svg viewBox="0 0 80 80" className="h-full w-full fill-none stroke-current">
-      <path d="M22 46a14 14 0 0 1 0-28 18 18 0 0 1 34 6 14 14 0 0 1 0 28H22Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 80 80" className="h-full w-full fill-none">
+      <path d="M22 46a14 14 0 0 1 0-28 18 18 0 0 1 34 6 14 14 0 0 1 0 28H22Z" stroke="#f97316" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   ),
 rainbow: (
-  <svg viewBox="0 0 100 60" className="h-full w-full fill-none" stroke="currentColor">
-    <path d="M10 52a40 40 0 0 1 80 0" strokeWidth="2" strokeLinecap="round" />
-    <path d="M22 52a28 28 0 0 1 56 0" strokeWidth="2" strokeLinecap="round" />
-    <path d="M34 52a16 16 0 0 1 32 0" strokeWidth="2" strokeLinecap="round" />
+  <svg viewBox="0 0 100 60" className="h-full w-full fill-none">
+    <path d="M10 52a40 40 0 0 1 80 0" stroke="#a855f7" strokeWidth="2" strokeLinecap="round" />
+    <path d="M22 52a28 28 0 0 1 56 0" stroke="#c084fc" strokeWidth="2" strokeLinecap="round" />
+    <path d="M34 52a16 16 0 0 1 32 0" stroke="#ec4899" strokeWidth="2" strokeLinecap="round" />
   </svg>
 ),
   book: (
