@@ -14,10 +14,10 @@ export function CTASection() {
           <p className="mt-4 text-lg leading-8 text-[#6B7280]">Whether you can teach, mentor, or simply listen, your presence can change a child’s future.</p>
         </div>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:mt-0">
-          <Link href="#newsletter" className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#F97316] to-[#2563EB] px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:scale-[1.02]">
+          <Link href="#newsletter" className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#EA580C] via-[#F97316] to-[#F59E0B] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(249,115,22,0.3)] transition hover:scale-[1.02]">
             Become a Volunteer <ArrowRight className="h-4 w-4" />
           </Link>
-          <Link href="#" className="inline-flex items-center justify-center gap-2 rounded-full border border-[#E5E7EB] px-6 py-3.5 text-sm font-semibold text-[#111827] transition hover:border-[#2563EB] hover:text-[#2563EB]">
+          <Link href="#" className="inline-flex items-center justify-center gap-2 rounded-full border border-[#FDE9D8] px-6 py-3.5 text-sm font-semibold text-[#111827] transition hover:border-[#F97316] hover:text-[#F97316]">
             <Users className="h-4 w-4" /> Meet our team
           </Link>
         </div>

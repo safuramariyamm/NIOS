@@ -9,6 +9,7 @@ import { Newsletter } from "../components/Newsletter";
 import { ProgramsSection } from "../components/ProgramsSection";
 import { StoriesSection } from "../components/StoriesSection";
 import { Testimonials } from "../components/Testimonials";
+import { TrustStrip } from "../components/TrustStrip";
 import { WhyChooseUsSection } from "../components/WhyChooseUsSection";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <TrustStrip />
         <MissionSection />
         <ProgramsSection />
         <WhyChooseUsSection />

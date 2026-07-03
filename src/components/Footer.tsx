@@ -3,7 +3,7 @@ import { BadgeCheck, MessageCircle, Send, Sparkles } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="mt-24 rounded-[40px] bg-gradient-to-r from-[#F97316] to-[#2563EB] px-6 py-12 text-white sm:px-8 lg:px-12">
+    <footer className="mt-24 rounded-[40px] bg-gradient-to-r from-[#7C2D12] via-[#EA580C] to-[#F59E0B] px-6 py-12 text-white sm:px-8 lg:px-12">
       <div className="mx-auto flex max-w-7xl flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-md">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-white/80">Bright Path Foundation</p>

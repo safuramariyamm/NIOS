@@ -19,9 +19,10 @@ export function GallerySection() {
               viewport={{ once: true, amount: 0.2 }}
               whileHover={{ scale: 1.03 }}
               transition={{ duration: 0.35, delay: index * 0.06 }}
-              className={`group relative overflow-hidden rounded-[28px] border border-[#E5E7EB] ${image.className}`}
+              className={`group relative overflow-hidden rounded-[28px] border border-[#FDE9D8] shadow-[0_20px_60px_rgba(154,52,18,0.06)] ${image.className}`}
             >
               <Image src={image.src} alt={image.alt} width={900} height={900} className="h-72 w-full object-cover transition duration-500 group-hover:scale-105" />
+              <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#7C2D12]/45 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             </motion.div>
           ))}
         </div>

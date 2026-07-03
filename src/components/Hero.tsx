@@ -16,15 +16,15 @@ const volunteerAvatars = [
 
 const heroSlides = [
   {
-    src: "/hero/hero img-11.png",
-    alt: "A smiling child learning with confidence",
+    src: "https://images.unsplash.com/photo-1549737221-bef65e2604a6?auto=format&fit=crop&w=1200&q=80",
+    alt: "A smiling child reading a book with confidence",
   },
   {
-    src: "/hero/hero img-2.png",
+    src: "https://images.unsplash.com/photo-1637195141628-f0f75585a07f?auto=format&fit=crop&w=1200&q=80",
     alt: "A BrightPath student enjoying a learning moment",
   },
   {
-    src: "/hero/hero img-3.png",
+    src: "https://images.unsplash.com/photo-1656030804388-ab973b9f6bf3?auto=format&fit=crop&w=1200&q=80",
     alt: "Children growing through education and care",
   },
 ];
@@ -150,20 +150,25 @@ export function Hero() {
           <div className="absolute h-[68%] w-[68%] translate-x-8 translate-y-8 rounded-full bg-[#FBBF24]/22 blur-3xl" aria-hidden />
           <AnimatedDoodle type="spark" className="right-[9%] top-[13%] h-12 w-12 text-[#FBBF24]/70" offset={{ x: pointer.x * 7, y: pointer.y * 4 }} delay={0.1} />
           <AnimatedDoodle type="star" className="left-[8%] top-[27%] h-12 w-12 text-white/85" offset={{ x: pointer.x * 6, y: pointer.y * 4 }} delay={0.18} />
-          <AnimatedDoodle type="pencil" className="bottom-[17%] left-[17%] h-16 w-16 -rotate-12 text-[#F97316]/55" offset={{ x: pointer.x * 8, y: pointer.y * 5 }} delay={0.24} />
-          <AnimatedDoodle type="cloud" className="bottom-[20%] right-[5%] h-14 w-14 text-white/80" offset={{ x: pointer.x * 5, y: pointer.y * 3 }} delay={0.3} />
+          <AnimatedDoodle type="pencil" className="bottom-[22%] left-[10%] h-16 w-16 -rotate-12 text-[#F97316]/55" offset={{ x: pointer.x * 8, y: pointer.y * 5 }} delay={0.24} />
+          <AnimatedDoodle type="cloud" className="bottom-[26%] right-[3%] h-14 w-14 text-white/80" offset={{ x: pointer.x * 5, y: pointer.y * 3 }} delay={0.3} />
           <motion.div
             whileHover={{ y: -4, scale: 1.01 }}
             transition={{ type: "spring", stiffness: 180, damping: 22 }}
-            className="relative w-full max-w-[640px]"
+            className="relative w-full max-w-[560px]"
           >
-            <div className="relative aspect-[1.08/1] w-full [mask-image:radial-gradient(ellipse_at_center,#000_58%,rgba(0,0,0,0.9)_75%,transparent_100%)]">
+            {/* Soft painterly glow that lets the photo blend into the hero background */}
+            <div
+              aria-hidden
+              className="absolute -inset-6 -z-10 rounded-[50%] bg-[conic-gradient(from_140deg,rgba(249,115,22,0.35),rgba(251,191,36,0.3),rgba(255,255,255,0),rgba(249,115,22,0.35))] opacity-70 blur-2xl"
+            />
+            <div className="relative aspect-[1/1.05] w-full [mask-image:radial-gradient(ellipse_58%_58%_at_50%_42%,#000_60%,rgba(0,0,0,0.55)_78%,transparent_100%)]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={heroSlides[activeSlide].src}
-                  initial={{ opacity: 0, scale: 1.06 }}
+                  initial={{ opacity: 0, scale: 1.08 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.02 }}
+                  exit={{ opacity: 0, scale: 1.03 }}
                   transition={{ duration: 0.75, ease: "easeInOut" }}
                   className="absolute inset-0"
                 >
@@ -172,14 +177,42 @@ export function Hero() {
                     alt={heroSlides[activeSlide].alt}
                     fill
                     priority={activeSlide === 0}
-                    className="object-contain opacity-95 mix-blend-multiply drop-shadow-[0_24px_40px_rgba(154,52,18,0.14)]"
-                    sizes="(max-width: 1024px) 92vw, 640px"
+                    className="object-cover object-[center_20%] drop-shadow-[0_30px_50px_rgba(154,52,18,0.18)]"
+                    sizes="(max-width: 1024px) 92vw, 560px"
                   />
                 </motion.div>
               </AnimatePresence>
             </div>
+
+            {/* Floating trust card, echoing the reference layout */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              whileHover={{ y: -3 }}
+              className="absolute -left-2 bottom-8 z-20 flex items-center gap-3 rounded-2xl border border-white/70 bg-white/85 px-4 py-3 shadow-[0_18px_40px_rgba(154,52,18,0.16)] backdrop-blur-xl sm:-left-6 sm:bottom-10"
+            >
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#F97316] to-[#FBBF24] text-white shadow-inner">
+                <Heart className="h-5 w-5 fill-white" />
+              </div>
+              <div>
+                <p className="text-sm font-bold leading-none text-[#1E293B]">20,000+ children</p>
+                <p className="mt-1 text-xs text-[#64748B]">supported with care</p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
+              className="absolute -right-3 top-6 z-20 rounded-2xl border border-white/70 bg-white/85 px-4 py-2.5 shadow-[0_18px_40px_rgba(154,52,18,0.14)] backdrop-blur-xl sm:-right-6"
+            >
+              <p className="flex items-center gap-1 text-sm font-bold text-[#9A3412]">
+                <Sparkles className="h-4 w-4 text-[#F97316]" /> 98% joy rate
+              </p>
+            </motion.div>
           </motion.div>
-          <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-full bg-white/70 px-3 py-2 shadow-[0_12px_30px_rgba(154,52,18,0.12)] backdrop-blur-xl">
+          <div className="absolute bottom-0 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-full bg-white/70 px-3 py-2 shadow-[0_12px_30px_rgba(154,52,18,0.12)] backdrop-blur-xl">
             {heroSlides.map((slide, index) => (
               <button
                 key={slide.src}
@@ -195,10 +228,21 @@ export function Hero() {
         </motion.div>
       </div>
 
+      {/* Decorative wave divider with playful doodles riding along it */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-30 text-[#FFFDFB]">
-        <svg className="block h-16 w-full sm:h-20 lg:h-24" viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none">
-          <path d="M0 54L60 48C120 42 240 30 360 40C480 50 600 82 720 86C840 90 960 66 1080 50C1200 34 1320 26 1380 22L1440 18V120H0V54Z" fill="currentColor" />
-          <path d="M0 78L80 72C160 66 320 54 480 64C640 74 800 106 960 98C1120 90 1280 42 1360 18L1440 -6V120H0V78Z" fill="currentColor" fillOpacity="0.55" />
+        <svg className="block h-20 w-full sm:h-24 lg:h-28" viewBox="0 0 1440 140" fill="none" preserveAspectRatio="none">
+          <path d="M0 66L60 60C120 54 240 42 360 52C480 62 600 94 720 96C840 98 960 72 1080 58C1200 44 1320 34 1380 30L1440 26V140H0V66Z" fill="currentColor" fillOpacity="0.5" />
+          <path d="M0 92L60 84C160 78 320 66 480 76C640 86 800 118 960 110C1120 102 1280 54 1360 30L1440 6V140H0V92Z" fill="currentColor" />
+          <g className="text-[#F97316]" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.55">
+            <circle cx="140" cy="40" r="4" fill="currentColor" stroke="none" />
+            <circle cx="1300" cy="34" r="4" fill="currentColor" stroke="none" />
+            <path d="M690 24 700 34 690 44" />
+            <path d="M980 46 L992 46 M986 40 L986 52" />
+          </g>
+          <g className="text-[#FBBF24]" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.6">
+            <path d="M330 30l4 8 8 1-6 6 1 8-7-4-7 4 1-8-6-6 8-1z" fill="currentColor" stroke="none" />
+            <path d="M1100 22l4 8 8 1-6 6 1 8-7-4-7 4 1-8-6-6 8-1z" fill="currentColor" stroke="none" />
+          </g>
         </svg>
       </div>
     </section>

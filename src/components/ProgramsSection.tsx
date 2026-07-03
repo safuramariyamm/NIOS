@@ -7,7 +7,9 @@ import { programs } from "@/data/siteContent";
 
 export function ProgramsSection() {
   return (
-    <section id="programs" className="px-4 py-20 sm:px-6 lg:px-8">
+    <section id="programs" className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8">
+      <div aria-hidden className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-[#FBBF24]/10 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -right-16 bottom-0 h-64 w-64 rounded-full bg-[#F97316]/10 blur-3xl" />
       <div className="mx-auto max-w-7xl">
         <SectionTitle eyebrow="What we do" title="Support that nurtures a child’s whole future" description="We create a full circle of care so each child can learn, heal, and grow with confidence." />
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">

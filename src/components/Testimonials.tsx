@@ -7,13 +7,14 @@ import { testimonials } from "@/data/siteContent";
 
 const accents = [
   { bg: "bg-orange-50", text: "text-[#F97316]" },
-  { bg: "bg-blue-50", text: "text-[#2563EB]" },
-  { bg: "bg-pink-50", text: "text-[#EC4899]" },
+  { bg: "bg-amber-50", text: "text-[#D97706]" },
+  { bg: "bg-orange-50", text: "text-[#EA580C]" },
 ];
 
 export function Testimonials() {
   return (
-    <section className="px-4 py-20 sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8">
+      <div aria-hidden className="dot-grid pointer-events-none absolute inset-x-0 bottom-0 h-48 opacity-30" />
       <div className="mx-auto max-w-7xl">
         <SectionTitle eyebrow="Testimonials" title="The warmth of our community is felt everywhere" description="Families, students, and volunteers share what our programs mean to them." align="center" />
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
