@@ -60,46 +60,49 @@ export const programs = [
 
 export const stories = [
   {
+    category: "Featured Story",
     title: "Asha found her voice through reading circles",
-    description: "After years of being quiet in class, Asha now leads her neighborhood literacy club and mentors younger children.",
+    description:
+      "After years of being quiet in class, Asha now leads her neighborhood literacy club and mentors younger children.",
     image:
-      "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=900&q=80",
-    tag: "Featured story",
+      "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&h=600&q=80",
+    size: "featured", // large left card
   },
   {
-    title: "Ravi’s dream of becoming a teacher",
-    description: "Scholarships and tutoring helped Ravi stay in school and begin teaching younger students on weekends.",
+    category: "Student Spotlight",
+    title: "Ravi's dream of becoming a teacher",
+    description:
+      "Scholarships and tutoring helped Ravi stay in school and begin teaching younger students on weekends.",
     image:
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
-    tag: "Student spotlight",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&h=600&q=80",
+    size: "large", // top right card
   },
   {
+    category: "Community Impact",
     title: "A safe place for girls to learn",
-    description: "A new community center gave over 80 girls a refuge, guidance, and time to imagine a bigger future.",
+    description:
+      "A new community center gave over 80 girls a refuge, guidance, and time to imagine a bigger future.",
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80",
-    tag: "Community impact",
+      "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=600&h=450&q=80",
+    size: "grid",
   },
   {
-    title: "Volunteer-led art workshop sparks confidence",
-    description: "Weekly art sessions helped children express emotions, celebrate culture, and discover new talents.",
+    category: "Health & Nutrition",
+    title: "A shared meal brought a whole classroom together",
+    description:
+      "Daily nutrition support meant children could focus on learning instead of hunger, and lunchtime became the happiest hour of the day.",
     image:
-      "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80",
-    tag: "Creative learning",
+      "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=600&h=450&q=80",
+    size: "grid",
   },
   {
-    title: "A shared meal brought a whole classroom ",
-    description: "Daily nutrition support meant children could focus on learning instead of hunger, and lunchtime became the happiest hour of the day.",
-    image:
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
-    tag: "Health & nutrition",
-  },
-  {
+    category: "Student Spotlight",
     title: "From shy first-grader to confident storyteller",
-    description: "Small classroom sizes and patient mentors gave Priya the courage to raise her hand — now she leads morning assembly stories.",
+    description:
+      "Small classroom sizes and patient mentors gave Priya the courage to raise her hand — now she leads morning assembly stories.",
     image:
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=800&q=80",
-    tag: "Student spotlight",
+      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=600&h=450&q=80",
+    size: "grid",
   },
 ];
 

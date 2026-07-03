@@ -1,41 +1,44 @@
 "use client";
 
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { useRef } from "react";
 import {
   ArrowDown,
+  BookOpen,
   GraduationCap,
+  Globe2,
   HandHeart,
   Heart,
+  Laptop,
+  Leaf,
+  Rocket,
   School,
   Sparkles,
+  Sprout,
+  Star,
+  Trophy,
+  Utensils,
   Users,
   Quote,
   ChevronRight,
 } from "lucide-react";
 import { AnimatedDoodle } from "@/components/AnimatedDoodle";
 import { Counter } from "@/components/Counter";
-import {
-  FaSeedling,
-  FaHeart as FaHeartSolid,
-  FaGlobeAmericas,
-  FaTrophy,
-  FaLaptopCode,
-  FaStar,
-  FaRocket,
-  FaBookOpen,
-  FaUtensils,
-  FaLeaf,
-  FaHandsHelping,
-} from "react-icons/fa";
 
-export const metadata: Metadata = {
-  title: "About Us | BrightPath Learning Center",
-  description: "Learn about BrightPath's story, mission, values, and work with children.",
-};
+const FaSeedling = Sprout;
+const FaHeartSolid = Heart;
+const FaGlobeAmericas = Globe2;
+const FaTrophy = Trophy;
+const FaLaptopCode = Laptop;
+const FaStar = Star;
+const FaRocket = Rocket;
+const FaBookOpen = BookOpen;
+const FaUtensils = Utensils;
+const FaLeaf = Leaf;
+const FaHandsHelping = HandHeart;
 
 /* ------------------------------------------------------------------ */
 /*  Content                                                            */
@@ -139,17 +142,17 @@ const timeline = [
 /*  Motion variants                                                    */
 /* ------------------------------------------------------------------ */
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
-const scaleIn = {
+const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
