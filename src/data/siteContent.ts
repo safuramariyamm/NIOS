@@ -80,7 +80,7 @@ export const stories = [
     tag: "Creative learning",
   },
   {
-    title: "A shared meal brought a whole classroom together",
+    title: "A shared meal brought a whole classroom ",
     description: "Daily nutrition support meant children could focus on learning instead of hunger, and lunchtime became the happiest hour of the day.",
     image:
       "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
