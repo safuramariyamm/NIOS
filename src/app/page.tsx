@@ -18,7 +18,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <TrustStrip />
+        {/* <TrustStrip /> */}
         <MissionSection />
         <ProgramsSection />
         <WhyChooseUsSection />

@@ -69,6 +69,25 @@ export function Hero() {
       <AnimatedDoodle type="pencil" className="bottom-[14%] left-[45%] hidden h-14 w-14 rotate-12 text-[#EA580C]/35 lg:block" offset={{ x: pointer.x * 7, y: pointer.y * 3 }} delay={0.25} />
       <AnimatedDoodle type="rainbow" className="bottom-[9%] right-[10%] h-16 w-16 text-white/80" offset={{ x: pointer.x * 4, y: pointer.y * 2 }} delay={0.35} />
 
+      {/* Dashed accent curve, echoing the hand-drawn line trailing from the rocket doodle
+          down past the photo and along toward the scroll indicator in the reference design */}
+      <svg
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-[5] hidden h-full w-full md:block"
+        viewBox="0 0 1440 900"
+        fill="none"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M860 150C900 210 940 260 920 320C895 395 800 430 760 500C715 578 700 660 660 720C610 795 480 820 400 800"
+          stroke="#F97316"
+          strokeWidth="2"
+          strokeDasharray="7 8"
+          strokeLinecap="round"
+          opacity="0.4"
+        />
+      </svg>
+
       <div className="mx-auto grid w-full max-w-7xl items-center gap-10 pb-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14 lg:pb-10">
         <motion.div
           initial={{ opacity: 0, y: 22 }}
