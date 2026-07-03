@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fffdfb;
+  --foreground: #111827;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(249, 115, 22, 0.25);
+  color: #111827;
+}
+
+/* Brush mask for hero image - creates an organic paint-like crop */
+.brush-mask {
+  -webkit-clip-path: polygon(6% 8%, 91% 4%, 99% 20%, 94% 42%, 98% 58%, 88% 82%, 70% 96%, 42% 98%, 16% 88%, 4% 64%, 10% 42%, 1% 20%);
+  clip-path: polygon(6% 8%, 91% 4%, 99% 20%, 94% 42%, 98% 58%, 88% 82%, 70% 96%, 42% 98%, 16% 88%, 4% 64%, 10% 42%, 1% 20%);
+}
+
+/* Floating blob animations */
+@keyframes float-slow {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+@keyframes float-long {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px) translateX(6px); }
+  100% { transform: translateY(0px); }
+}
+.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+.animate-float-long { animation: float-long 9s ease-in-out infinite; }
+
+/* brush container micro-interactions */
+.brush-card:hover .brush-mask { transform: scale(1.02); transition: transform 450ms cubic-bezier(.2,.9,.2,1); }
+.brush-mask { transition: transform 450ms cubic-bezier(.2,.9,.2,1); clip-path: path('M0.08,0.14 C0.24,0.04 0.39,0.08 0.53,0.14 C0.68,0.22 0.82,0.1 0.92,0.2 C1.02,0.3 0.96,0.44 0.92,0.56 C0.88,0.68 0.73,0.76 0.6,0.78 C0.47,0.8 0.34,0.78 0.22,0.78 C0.12,0.78 0.02,0.72 0.02,0.6 C0.02,0.48 0.08,0.34 0.08,0.14 Z');
+}
+
+/* ---- BrightPath playful theme extras ---- */
+
+.hero-blob {
+  clip-path: path('M60,410 C-10,360 5,220 55,140 C110,50 250,10 370,25 C490,40 560,110 570,210 C580,320 520,400 420,435 C320,470 140,465 60,410 Z');
+}
+
+@keyframes blob-morph {
+  0%, 100% { border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%; }
+  33% { border-radius: 60% 40% 35% 65% / 55% 65% 35% 45%; }
+  66% { border-radius: 35% 65% 55% 45% / 40% 50% 50% 60%; }
+}
+.animate-blob { animation: blob-morph 10s ease-in-out infinite; }
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.animate-float-y { animation: float-y 4.5s ease-in-out infinite; }
+
+@keyframes float-y-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float-y-slow { animation: float-y-slow 6.5s ease-in-out infinite; }
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 22s linear infinite; }
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.06); }
+}
+.animate-pulse-soft { animation: pulse-soft 3.5s ease-in-out infinite; }
+
+.text-gradient-brand {
+  background-image: linear-gradient(90deg, #F97316, #EC4899, #8B5CF6, #2563EB);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(249,115,22,0.35) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+}
