@@ -1,10 +1,9 @@
 "use client";
 
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, type MouseEvent } from "react";
 import {
   ArrowDown,
   GraduationCap,
@@ -15,6 +14,8 @@ import {
   Users,
   Quote,
   ChevronRight,
+  Star,
+  ArrowRight,
 } from "lucide-react";
 import { AnimatedDoodle } from "@/components/AnimatedDoodle";
 import { Counter } from "@/components/Counter";
@@ -31,11 +32,6 @@ import {
   FaLeaf,
   FaHandsHelping,
 } from "react-icons/fa";
-
-export const metadata: Metadata = {
-  title: "About Us | BrightPath Learning Center",
-  description: "Learn about BrightPath's story, mission, values, and work with children.",
-};
 
 /* ------------------------------------------------------------------ */
 /*  Content                                                            */
@@ -135,6 +131,15 @@ const timeline = [
   { year: "2026", title: "Digital Dreams", text: "Playful technology opened new doors for curious minds.", icon: FaLaptopCode },
 ];
 
+const aboutAvatars = [
+  { initials: "EK", className: "bg-[#F97316] text-white" },
+  { initials: "MT", className: "bg-[#F59E0B] text-white" },
+  { initials: "RJ", className: "bg-[#FBBF24] text-[#7C2D12]" },
+  { initials: "NV", className: "bg-white text-[#C2410C]" },
+];
+
+const heroImage = "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1800&q=85";
+
 /* ------------------------------------------------------------------ */
 /*  Motion variants                                                    */
 /* ------------------------------------------------------------------ */
@@ -146,7 +151,7 @@ const fadeInUp = {
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
 const containerVariants = {
@@ -161,9 +166,6 @@ const containerVariants = {
 /*  Decorative primitives — waves, blobs, floating shapes, doodles     */
 /* ------------------------------------------------------------------ */
 
-/** A wave that sits at the bottom edge of a section, painted in the
- *  color of whatever comes next, so sections melt into each other
- *  instead of a hard line. */
 function WaveDivider({ fill, flip = false }: { fill: string; flip?: boolean }) {
   return (
     <div
@@ -180,16 +182,9 @@ function WaveDivider({ fill, flip = false }: { fill: string; flip?: boolean }) {
   );
 }
 
-/** Soft organic blob, used as ambient background color instead of a
- *  flat gradient wash. */
 function Blob({ className, color, opacity = 0.16 }: { className: string; color: string; opacity?: number }) {
   return (
-    <svg
-      aria-hidden
-      viewBox="0 0 200 200"
-      className={`pointer-events-none absolute ${className}`}
-      style={{ opacity }}
-    >
+    <svg aria-hidden viewBox="0 0 200 200" className={`pointer-events-none absolute ${className}`} style={{ opacity }}>
       <path
         fill={color}
         d="M45.3,-59.4C58.5,-49.9,68.6,-34.6,72.7,-17.8C76.8,-1,74.9,17.3,66.4,31.9C57.9,46.5,42.8,57.4,26.2,64.6C9.6,71.8,-8.5,75.3,-24.9,70.6C-41.3,65.9,-56,53,-64.5,37.2C-73,21.4,-75.3,2.7,-71.2,-14.2C-67.1,-31.1,-56.6,-46.2,-42.6,-55.6C-28.6,-65,-14.3,-68.7,1.6,-71.1C17.5,-73.5,35,-68.9,45.3,-59.4Z"
@@ -199,8 +194,6 @@ function Blob({ className, color, opacity = 0.16 }: { className: string; color: 
   );
 }
 
-/** Gently bobbing square or circle, for playful geometric confetti
- *  around section headers. */
 function FloatingShape({
   className,
   shape = "circle",
@@ -223,7 +216,7 @@ function FloatingShape({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Sticky, page-level donate bar                                      */
+/*  Sticky donate bar                                                  */
 /* ------------------------------------------------------------------ */
 
 function StickyDonateBar() {
@@ -232,10 +225,7 @@ function StickyDonateBar() {
   const y = useTransform(scrollYProgress, [0, 0.07], [30, 0]);
 
   return (
-    <motion.div
-      style={{ opacity, y }}
-      className="fixed bottom-6 right-5 z-50 hidden sm:block"
-    >
+    <motion.div style={{ opacity, y }} className="fixed bottom-6 right-5 z-50 hidden sm:block">
       <Link
         href="/donate"
         className="group inline-flex items-center gap-2 rounded-full bg-[#FDBA24] px-6 py-3.5 text-sm font-bold text-[#7C2D12] shadow-2xl ring-4 ring-white/50 transition-all hover:-translate-y-1 hover:scale-105"
@@ -249,136 +239,206 @@ function StickyDonateBar() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Hero                                                                */
+/*  Hero — Updated to match Programs page style                       */
 /* ------------------------------------------------------------------ */
 
 function AboutHero() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const handleMouseMove = (event: MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+    setPointer({ x, y });
+  };
+
+  const handleMouseLeave = () => setPointer({ x: 0, y: 0 });
 
   return (
-    <section ref={ref} className="relative isolate flex min-h-[calc(100vh-80px)] items-center overflow-hidden px-4 py-20 text-white sm:px-6 lg:px-8">
-      <motion.div style={{ y, opacity, scale }} className="absolute inset-0 -z-20">
-        <Image
-          src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1800&q=85"
-          alt="Children smiling together"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-      </motion.div>
+    <section
+      className="relative isolate flex min-h-[calc(100svh-5rem)] overflow-hidden bg-[#FFFDF8] px-4 py-10 text-[#1E293B] sm:px-6 lg:min-h-[calc(100svh-4.5rem)] lg:px-8 lg:py-8"
+      style={{ fontFamily: "var(--font-fredoka)" }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <Image src={heroImage} alt="" fill priority className="object-cover object-center" sizes="100vw" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,253,248,0.92)_0%,rgba(255,253,248,0.8)_42%,rgba(255,253,248,0.6)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_18%,rgba(255,255,255,0.8),transparent_28%),radial-gradient(circle_at_78%_22%,rgba(251,191,36,0.22),transparent_24%),linear-gradient(180deg,rgba(255,253,248,0.3)_0%,rgba(255,253,248,0.88)_100%)]" />
+      </div>
 
-      {/* Lighter, more layered wash instead of a flat orange sheet */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#3B1F12]/75 via-[#7C2D12]/45 to-[#3B1F12]/60" />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_78%_18%,rgba(253,186,36,0.28),transparent_42%),radial-gradient(circle_at_14%_82%,rgba(45,212,191,0.14),transparent_38%)]" />
+      <AnimatedDoodle type="star" className="left-[7%] top-[18%] h-10 w-10 text-[#F59E0B]/45" offset={{ x: pointer.x * 6, y: pointer.y * 4 }} />
+      <AnimatedDoodle type="book" className="left-[43%] top-[13%] hidden h-16 w-16 -rotate-12 text-[#F97316]/25 md:block" offset={{ x: pointer.x * 8, y: pointer.y * 5 }} delay={0.1} />
+      <AnimatedDoodle type="cloud" className="right-[8%] top-[12%] h-14 w-14 text-[#FBBF24]/35" offset={{ x: pointer.x * 5, y: pointer.y * 3 }} delay={0.2} />
+      <AnimatedDoodle type="pencil" className="bottom-[14%] left-[45%] hidden h-14 w-14 rotate-12 text-[#EA580C]/35 lg:block" offset={{ x: pointer.x * 7, y: pointer.y * 3 }} delay={0.25} />
+      <AnimatedDoodle type="balloon" className="bottom-[9%] right-[10%] h-16 w-16 text-white/80" offset={{ x: pointer.x * 4, y: pointer.y * 2 }} delay={0.35} />
 
-      {/* Ambient geometry */}
-      <FloatingShape className="right-[6%] top-[26%] h-6 w-6 hidden lg:block" shape="square" color="bg-[#FDBA24]/70" />
-      <FloatingShape className="right-[22%] top-[62%] h-4 w-4 hidden md:block" shape="circle" color="bg-white/50" duration={5} />
-      <FloatingShape className="left-[6%] bottom-[30%] h-5 w-5 hidden lg:block" shape="circle" color="bg-[#2DD4BF]/60" duration={7} />
-
-      <Balloon className="right-[9%] top-[18%] hidden animate-float-y lg:block" color="bg-[#FB923C]" />
-      <Balloon className="right-[18%] bottom-[18%] hidden animate-float-y-slow md:block" color="bg-[#FDBA24]" />
-      <AnimatedDoodle type="star" className="left-[8%] top-[18%] h-11 w-11 text-[#FDBA24]" />
-      <AnimatedDoodle type="balloon" className="left-[16%] bottom-[18%] hidden h-16 w-16 text-[#FB7185] sm:block" delay={0.2} />
-      <AnimatedDoodle type="abc" className="right-[32%] top-[16%] hidden h-16 w-16 text-white/60 md:block" delay={0.1} />
-      <AnimatedDoodle type="book" className="left-[32%] bottom-[12%] hidden h-12 w-12 text-white/40 md:block" delay={0.3} />
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="mx-auto w-full max-w-7xl"
+      <svg
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-[5] hidden h-full w-full md:block"
+        viewBox="0 0 1440 900"
+        fill="none"
+        preserveAspectRatio="none"
       >
-        <div className="max-w-3xl" style={{ fontFamily: "var(--font-fredoka)" }}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center gap-3 rounded-full border border-white/40 bg-white/15 px-6 py-2.5 text-sm font-bold backdrop-blur-md"
-          >
-            <Sparkles className="h-4 w-4 text-[#FDBA24]" />
+        <path
+          d="M860 150C900 210 940 260 920 320C895 395 800 430 760 500C715 578 700 660 660 720C610 795 480 820 400 800"
+          stroke="#F97316"
+          strokeWidth="2"
+          strokeDasharray="7 8"
+          strokeLinecap="round"
+          opacity="0.4"
+        />
+      </svg>
+
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 pb-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14 lg:pb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, ease: "easeOut" }}
+          className="relative z-20 flex max-w-2xl flex-col justify-center"
+        >
+          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/70 bg-white/60 px-4 py-2 text-sm font-semibold text-[#9A3412] shadow-[0_14px_40px_rgba(249,115,22,0.12)] backdrop-blur-xl">
+            <Sparkles className="h-4 w-4 text-[#F97316]" />
             About BrightPath
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
-          >
-            Every Child Deserves
-            <span className="block text-[#FDBA24]">a Chance to Dream</span>
-          </motion.h1>
+          <h1 className="mt-6 text-5xl font-bold leading-[0.98] text-[#1E293B] sm:text-6xl lg:text-7xl xl:text-[5rem]">
+            Every Child Deserves{" "}
+            <span className="inline-block -rotate-1 bg-gradient-to-r from-[#EA580C] via-[#F97316] to-[#FBBF24] bg-clip-text text-[1.12em] text-transparent" style={{ fontFamily: "var(--font-caveat)" }}>
+              a Chance
+            </span>{" "}
+            to Dream
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-white/90 sm:text-xl"
-          >
+          <p className="mt-6 max-w-xl text-base leading-8 text-[#475569] sm:text-lg">
             Building brighter futures through education, care, protection, and opportunity.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-            className="mt-10 flex flex-wrap gap-4"
-          >
-            <Link
-              href="/volunteer"
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-bold text-[#EA580C] shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl hover:scale-105"
-            >
-              Join the story <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition" />
-            </Link>
-            <Link
-              href="/donate"
-              className="group inline-flex items-center gap-2 rounded-full bg-[#FDBA24] px-8 py-3.5 text-sm font-bold text-[#7C2D12] shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl hover:scale-105"
-            >
-              <Heart className="h-4 w-4 fill-[#FB7185] text-[#FB7185]" />
-              Donate now
-            </Link>
-          </motion.div>
+          <div className="mt-6 h-1.5 w-28 rounded-full bg-gradient-to-r from-[#F97316] to-[#FBBF24] shadow-[0_8px_24px_rgba(249,115,22,0.28)]" />
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-            className="mt-10 flex items-center gap-6"
-          >
-            <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-10 w-10 rounded-full border-2 border-white bg-gradient-to-br from-[#FDBA24] to-[#EA580C]" />
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/volunteer"
+                className="group inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#EA580C] via-[#F97316] to-[#F59E0B] px-7 text-sm font-bold text-white shadow-[0_18px_45px_rgba(249,115,22,0.34)] transition duration-300 hover:shadow-[0_22px_55px_rgba(249,115,22,0.42)]"
+              >
+                <Heart className="h-4 w-4 fill-white text-white" />
+                Join the Story
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
+
+            <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/donate"
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-[#F97316]/15 bg-white/80 px-7 text-sm font-bold text-[#9A3412] shadow-[0_14px_36px_rgba(249,115,22,0.11)] backdrop-blur-xl transition duration-300 hover:border-[#F59E0B]/50 hover:bg-white"
+              >
+                <Heart className="h-5 w-5 text-[#F97316]" />
+                Donate Now
+              </Link>
+            </motion.div>
+          </div>
+
+          <div className="mt-7 flex flex-wrap items-center gap-4">
+            <div className="flex -space-x-3">
+              {aboutAvatars.map((avatar) => (
+                <div
+                  key={avatar.initials}
+                  className={`flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#FFFDF8] text-[11px] font-bold shadow-sm ${avatar.className}`}
+                >
+                  {avatar.initials}
+                </div>
               ))}
             </div>
-            <div>
-              <p className="text-sm font-semibold text-white/90">
-                <span className="text-xl font-bold text-[#FDBA24]">5000+</span> children supported
+            {/* <div className="flex items-center gap-2">
+              <div className="flex" aria-label="5 star rating">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <Star key={index} className="h-4 w-4 fill-[#F59E0B] text-[#F59E0B]" />
+                ))}
+              </div>
+              <p className="text-sm font-semibold text-[#334155]">5,000+ children supported.</p>
+            </div> */}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 28 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.75, delay: 0.12, ease: "easeOut" }}
+          className="relative z-10 flex min-h-[430px] items-center justify-center lg:min-h-[590px]"
+        >
+          <div className="absolute h-[84%] w-[84%] rounded-full bg-[#F97316]/14 blur-3xl" aria-hidden />
+          <div className="absolute h-[68%] w-[68%] translate-x-8 translate-y-8 rounded-full bg-[#FBBF24]/22 blur-3xl" aria-hidden />
+          <AnimatedDoodle type="spark" className="right-[9%] top-[13%] h-12 w-12 text-[#FBBF24]/70" offset={{ x: pointer.x * 7, y: pointer.y * 4 }} delay={0.1} />
+          <AnimatedDoodle type="star" className="left-[8%] top-[27%] h-12 w-12 text-white/85" offset={{ x: pointer.x * 6, y: pointer.y * 4 }} delay={0.18} />
+          <AnimatedDoodle type="pencil" className="bottom-[22%] left-[10%] h-16 w-16 -rotate-12 text-[#F97316]/55" offset={{ x: pointer.x * 8, y: pointer.y * 5 }} delay={0.24} />
+          <AnimatedDoodle type="cloud" className="bottom-[26%] right-[3%] h-14 w-14 text-white/80" offset={{ x: pointer.x * 5, y: pointer.y * 3 }} delay={0.3} />
+          <motion.div
+            whileHover={{ y: -4, scale: 1.01 }}
+            transition={{ type: "spring", stiffness: 180, damping: 22 }}
+            className="relative w-full max-w-[560px]"
+          >
+            <div
+              aria-hidden
+              className="absolute -inset-6 -z-10 rounded-[50%] bg-[conic-gradient(from_140deg,rgba(249,115,22,0.35),rgba(251,191,36,0.3),rgba(255,255,255,0),rgba(249,115,22,0.35))] opacity-70 blur-2xl"
+            />
+            {/* <div className="relative aspect-[1/1.05] w-full [mask-image:radial-gradient(ellipse_58%_58%_at_50%_42%,#000_60%,rgba(0,0,0,0.55)_78%,transparent_100%)]">
+              <Image
+                src={heroImage}
+                alt="Children smiling together"
+                fill
+                priority
+                className="object-cover object-[center_20%] drop-shadow-[0_30px_50px_rgba(154,52,18,0.18)]"
+                sizes="(max-width: 1024px) 92vw, 560px"
+              />
+            </div> */}
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              whileHover={{ y: -3 }}
+              className="absolute -left-2 bottom-8 z-20 flex items-center gap-3 rounded-2xl border border-white/70 bg-white/85 px-4 py-3 shadow-[0_18px_40px_rgba(154,52,18,0.16)] backdrop-blur-xl sm:-left-6 sm:bottom-10"
+            >
+              {/* <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#F97316] to-[#FBBF24] text-white shadow-inner">
+                <Heart className="h-5 w-5 fill-white" />
+              </div> */}
+              {/* <div>
+                <p className="text-sm font-bold leading-none text-[#1E293B]">5,000+ children</p>
+                <p className="mt-1 text-xs text-[#64748B]">supported across programs</p>
+              </div> */}
+            </motion.div>
+
+            {/* <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
+              className="absolute -right-3 top-6 z-20 rounded-2xl border border-white/70 bg-white/85 px-4 py-2.5 shadow-[0_18px_40px_rgba(154,52,18,0.14)] backdrop-blur-xl sm:-right-6"
+            >
+              <p className="flex items-center gap-1 text-sm font-bold text-[#9A3412]">
+                <Sparkles className="h-4 w-4 text-[#F97316]" /> Since 2018
               </p>
-            </div>
+            </motion.div> */}
           </motion.div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-xs font-bold uppercase tracking-[0.28em] text-white/85"
-      >
-        Scroll
-        <span className="flex h-11 w-7 items-start justify-center rounded-full border border-white/70 p-1">
-          <ArrowDown className="h-4 w-4 animate-float-y text-[#FDBA24]" />
-        </span>
-      </motion.div>
-
-      <WaveDivider fill="#FFFFFF" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-30 text-[#FFFDFB]">
+        <svg className="block h-20 w-full sm:h-24 lg:h-28" viewBox="0 0 1440 140" fill="none" preserveAspectRatio="none">
+          <path d="M0 66L60 60C120 54 240 42 360 52C480 62 600 94 720 96C840 98 960 72 1080 58C1200 44 1320 34 1380 30L1440 26V140H0V66Z" fill="currentColor" fillOpacity="0.5" />
+          <path d="M0 92L60 84C160 78 320 66 480 76C640 86 800 118 960 110C1120 102 1280 54 1360 30L1440 6V140H0V92Z" fill="currentColor" />
+          <g className="text-[#F97316]" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.55">
+            <circle cx="140" cy="40" r="4" fill="currentColor" stroke="none" />
+            <circle cx="1300" cy="34" r="4" fill="currentColor" stroke="none" />
+            <path d="M690 24 700 34 690 44" />
+            <path d="M980 46 L992 46 M986 40 L986 52" />
+          </g>
+          <g className="text-[#FBBF24]" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.6">
+            <path d="M330 30l4 8 8 1-6 6 1 8-7-4-7 4 1-8-6-6 8-1z" fill="currentColor" stroke="none" />
+            <path d="M1100 22l4 8 8 1-6 6 1 8-7-4-7 4 1-8-6-6 8-1z" fill="currentColor" stroke="none" />
+          </g>
+        </svg>
+      </div>
     </section>
   );
 }
@@ -504,7 +564,7 @@ function StoryIntro() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Mission / Vision / Values — pinned scroll story                    */
+/*  Pinned Scroll Story                                                */
 /* ------------------------------------------------------------------ */
 
 function PinnedScrollStory() {
@@ -513,7 +573,6 @@ function PinnedScrollStory() {
 
   return (
     <section ref={containerRef} className="relative bg-[#3B2416]">
-      {/* Sticky progress rail — a real, functioning scroll indicator */}
       <div className="pointer-events-none absolute right-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-center gap-3 md:flex">
         <div className="relative h-56 w-1.5 overflow-hidden rounded-full bg-white/15">
           <motion.div style={{ scaleY: scrollYProgress }} className="absolute inset-x-0 top-0 h-full origin-top rounded-full bg-[#FDBA24]" />
@@ -586,191 +645,66 @@ function PinnedScrollStory() {
 function ImpactSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const statPositions = [
-    "lg:translate-y-6",
-    "lg:-translate-y-4",
-    "lg:translate-y-10",
-    "lg:-translate-y-8",
-  ];
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-[#FFFEFB] px-4 py-28 sm:px-6 lg:px-8">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_22%,rgba(253,186,36,0.16),transparent_30%),radial-gradient(circle_at_86%_14%,rgba(56,189,248,0.12),transparent_28%),radial-gradient(circle_at_80%_86%,rgba(45,212,191,0.13),transparent_30%)]" />
-      <Blob className="-left-24 bottom-0 h-96 w-96" color="#FDBA24" opacity={0.12} />
-      <Blob className="-right-28 top-10 h-96 w-96" color="#2DD4BF" opacity={0.1} />
-      <Blob className="left-[42%] top-[20%] h-60 w-60" color="#FB7185" opacity={0.055} />
+    <section ref={ref} className="relative overflow-hidden bg-white px-4 py-28 sm:px-6 lg:px-8">
+      <div aria-hidden className="absolute left-10 top-10 h-28 w-28 rounded-full bg-[#FDBA24]/10" />
+      <div aria-hidden className="absolute right-10 bottom-10 h-24 w-24 rotate-12 rounded-[22px] bg-[#2DD4BF]/8" />
+      <Blob className="-left-20 bottom-0 h-80 w-80" color="#A78BFA" opacity={0.07} />
       <FloatingShape className="right-[10%] top-[10%] h-6 w-6 hidden lg:block" shape="circle" color="bg-[#FB7185]/40" duration={5} />
-      <FloatingShape className="left-[9%] bottom-[18%] h-7 w-7 hidden lg:block" shape="square" color="bg-[#FDBA24]/55" duration={7} />
-      <AnimatedDoodle type="star" className="right-[7%] bottom-[12%] hidden h-12 w-12 text-[#FDBA24]/45 md:block" />
-      <AnimatedDoodle type="cloud" className="left-[7%] top-[12%] hidden h-16 w-16 text-[#38BDF8]/25 lg:block" />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
-          className="mx-auto max-w-3xl text-center"
+          className="max-w-3xl"
         >
-          <p className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-black uppercase tracking-[0.28em] text-[#F97316] shadow-[0_14px_35px_rgba(124,45,18,0.08)]">
-            <Sparkles className="h-4 w-4 text-[#FDBA24]" />
-            Our impact
-          </p>
-          <h2 className="mt-4 text-4xl font-bold leading-tight text-[#7C2D12] sm:text-5xl" style={{ fontFamily: "var(--font-fredoka)" }}>
-            Small acts of care, counted in brighter futures.
+          <p className="text-sm font-black uppercase tracking-[0.3em] text-[#F97316]">Our impact</p>
+          <h2 className="mt-4 text-4xl font-bold text-[#7C2D12] sm:text-5xl" style={{ fontFamily: "var(--font-fredoka)" }}>
+            Tiny wins become big futures.
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-[#7C2D12]/70">
+          <p className="mt-4 text-lg text-[#7C2D12]/70">
             Every number represents a life touched, a dream nurtured, and a future transformed.
           </p>
         </motion.div>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="relative"
-          >
-            <div className="absolute -left-5 top-10 h-32 w-32 rounded-[32px] bg-[#FDBA24]/35" />
-            <div className="absolute -right-5 bottom-10 h-28 w-28 rounded-full bg-[#2DD4BF]/25 blur-xl" />
-            <div className="relative overflow-hidden rounded-[42px] border border-white bg-white p-3 shadow-[0_34px_90px_rgba(124,45,18,0.12)]">
-              <Image
-                src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1200&q=85"
-                alt="Children smiling during a BrightPath activity"
-                width={1000}
-                height={900}
-                className="aspect-[1.05] w-full rounded-[34px] object-cover"
-              />
-              <div className="absolute inset-3 rounded-[34px] bg-gradient-to-t from-[#3B1F12]/68 via-transparent to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8 rounded-[30px] border border-white/35 bg-white/18 p-6 text-white shadow-2xl backdrop-blur-md">
-                <p className="text-sm font-black uppercase tracking-[0.24em] text-[#FDBA24]">Real children, real change</p>
-                <p className="mt-3 text-3xl font-bold leading-tight" style={{ fontFamily: "var(--font-fredoka)" }}>
-                  From classrooms to communities, every promise becomes visible.
-                </p>
-              </div>
-            </div>
-          </motion.div>
+        <motion.div
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={containerVariants}
+          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {impacts.map((item) => {
+            const Icon = item.icon;
 
-          <motion.div
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            variants={containerVariants}
-            className="grid gap-5 sm:grid-cols-2"
-          >
-            {impacts.map((item, index) => {
-              const Icon = item.icon;
-              const accents = ["#FB7185", "#FDBA24", "#2DD4BF", "#38BDF8"];
-
-              return (
+            return (
               <motion.div
                 key={item.label}
                 variants={scaleIn}
-                whileHover={{ y: -10, scale: 1.025 }}
-                transition={{ type: "spring", stiffness: 280, damping: 20 }}
-                className={`group relative overflow-hidden rounded-[32px] border border-white bg-white p-6 shadow-[0_22px_60px_rgba(124,45,18,0.09)] ring-1 ring-[#FED7AA]/60 ${statPositions[index]}`}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.5 }}
+                className={`group rounded-[30px] bg-gradient-to-br ${item.color} p-[2px] shadow-lg hover:shadow-2xl transition-shadow`}
               >
-                <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-10" style={{ backgroundColor: accents[index] }} />
-                <div className="absolute bottom-5 right-5 h-10 w-10 rotate-12 rounded-xl bg-[#FFF7ED]" />
-                <div className="relative flex items-start justify-between gap-4">
-                  <motion.div
-                    className={`flex h-16 w-16 items-center justify-center rounded-[22px] bg-gradient-to-br ${item.color} text-white shadow-lg`}
-                    animate={isInView ? { y: [0, -6, 0] } : { y: 0 }}
-                    transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 2.4, delay: index * 0.18 }}
-                  >
-                    <Icon className="h-7 w-7 transition-transform group-hover:scale-110" />
-                  </motion.div>
-                  <span className="rounded-full bg-[#FFF7ED] px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-[#F97316]">
-                    Impact
-                  </span>
-                </div>
-                <div className="relative mt-6 [&_*]:!bg-transparent [&_*]:!p-0 [&_*]:!text-left [&_*]:!shadow-none [&_p:first-child]:!text-5xl [&_p:first-child]:!font-black [&_p:first-child]:!leading-none [&_p:first-child]:!text-[#3B1F12] [&_p:last-child]:!mt-3 [&_p:last-child]:!text-sm [&_p:last-child]:!font-black [&_p:last-child]:!uppercase [&_p:last-child]:!tracking-[0.2em] [&_p:last-child]:!text-[#9A3412]">
-                  <Counter value={item.value} label={item.label} />
-                </div>
-                <div className="relative mt-6 flex items-center gap-2">
-                  <span className="h-2 w-12 rounded-full" style={{ backgroundColor: accents[index] }} />
-                  <span className="h-2 w-2 rounded-full bg-[#FDBA24]" />
-                  <span className="h-2 w-2 rounded-full bg-[#2DD4BF]" />
+                <div className="rounded-[28px] bg-white p-6 text-center transition-colors">
+                  <div className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.color} text-white shadow-lg`}>
+                    <Icon className="h-7 w-7" />
+                  </div>
+                  <div className="mt-3 [&_*]:!text-[#7C2D12] [&_p]:!text-[#7C2D12]/60 [&_span]:!font-bold">
+                    <Counter value={item.value} label={item.label} />
+                  </div>
                 </div>
               </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Team                                                                */
-/* ------------------------------------------------------------------ */
-
-// function TeamSection() {
-//   const ref = useRef(null);
-//   const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-//   return (
-//     <section ref={ref} className="relative overflow-hidden bg-[#FFF7ED] px-4 py-28 sm:px-6 lg:px-8">
-//       <Blob className="-right-24 -top-10 h-72 w-72" color="#FDBA24" opacity={0.1} />
-//       <AnimatedDoodle type="abc" className="left-[6%] bottom-[8%] hidden h-14 w-14 text-[#F97316]/20 md:block" />
-//       <FloatingShape className="right-[8%] top-[16%] h-5 w-5 hidden lg:block" shape="square" color="bg-[#7C2D12]/10" />
-
-//       <div className="relative mx-auto max-w-7xl">
-//         <motion.div
-//           initial={{ opacity: 0, y: 30 }}
-//           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-//           transition={{ duration: 0.8 }}
-//           className="max-w-3xl"
-//         >
-//           <p className="text-sm font-black uppercase tracking-[0.3em] text-[#F97316]">Meet our team</p>
-//           <h2 className="mt-4 text-4xl font-bold text-[#7C2D12] sm:text-5xl" style={{ fontFamily: "var(--font-fredoka)" }}>
-//             The people cheering children forward.
-//           </h2>
-//         </motion.div>
-
-//         <motion.div
-//           initial="hidden"
-//           animate={isInView ? "visible" : "hidden"}
-//           variants={containerVariants}
-//           className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-//         >
-//           {team.map((person) => {
-//             const RoleIcon = person.icon;
-
-//             return (
-//               <motion.article
-//                 key={person.role}
-//                 variants={fadeInUp}
-//                 transition={{ duration: 0.6, delay: person.delay }}
-//                 className="group rounded-[30px] border border-[#FED7AA] bg-white p-8 text-center shadow-lg transition-all hover:-translate-y-3 hover:shadow-2xl"
-//               >
-//                 <div className="relative mx-auto h-32 w-32 overflow-hidden rounded-full border-4 border-[#FDBA24] shadow-lg">
-//                   <Image
-//                     src={person.image}
-//                     alt={person.name}
-//                     width={260}
-//                     height={260}
-//                     className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-//                   />
-//                   <div className="absolute inset-0 bg-gradient-to-t from-[#7C2D12]/30 to-transparent opacity-0 group-hover:opacity-100 transition" />
-//                 </div>
-//                 <div className="mx-auto -mt-6 flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-[#FDBA24] text-[#7C2D12] shadow-md">
-//                   <RoleIcon className="h-4 w-4" />
-//                 </div>
-//                 <p className="mt-3 text-sm font-black uppercase tracking-[0.22em] text-[#F97316]">{person.role}</p>
-//                 <h3 className="mt-2 text-xl font-bold text-[#7C2D12]" style={{ fontFamily: "var(--font-fredoka)" }}>
-//                   {person.name}
-//                 </h3>
-//               </motion.article>
-//             );
-//           })}
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// }
-
-/* ------------------------------------------------------------------ */
-/*  Timeline                                                            */
+/*  Timeline                                                           */
 /* ------------------------------------------------------------------ */
 
 function TimelineSection() {
@@ -1064,7 +998,7 @@ function FinalCTA() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Small pieces                                                       */
+/*  Balloon                                                           */
 /* ------------------------------------------------------------------ */
 
 function Balloon({ className, color }: { className: string; color: string }) {
@@ -1078,17 +1012,16 @@ function Balloon({ className, color }: { className: string; color: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Page                                                                */
+/*  Page                                                               */
 /* ------------------------------------------------------------------ */
 
-export default function AboutPage() {
+export default function AboutClient() {
   return (
     <>
       <AboutHero />
       <StoryIntro />
       <PinnedScrollStory />
       <ImpactSection />
-      {/* <TeamSection /> */}
       <TimelineSection />
       <FinalCTA />
       <StickyDonateBar />
