@@ -19,7 +19,7 @@ export default function Home() {
       <ProgramsSection />
       <WhyChooseUsSection />
       <StoriesSection />
-      <ImpactSection />
+      {/* <ImpactSection /> */}
       <GallerySection />
       <Testimonials />
       <CTASection />

@@ -16,9 +16,11 @@ export const stats = [
 ];
 
 export const programs = [
-  {
+ {
     title: "Education",
-    description: "Bright classrooms, digital learning, and joyful mentors who guide each child beyond the basics.",
+    description:
+      "Bright classrooms, digital learning, and joyful mentors who guide each child beyond the basics.",
+    image: "/programs/education.jpg",
     icon: BookOpen,
     color: "from-[#F97316] to-[#FB923C]",
     bg: "bg-orange-50",
@@ -26,7 +28,9 @@ export const programs = [
   },
   {
     title: "Health & Nutrition",
-    description: "Daily nourishment, wellness support, and preventive care so children can thrive in body and spirit.",
+    description:
+      "Daily nourishment, wellness support, and preventive care so children can thrive in body and spirit.",
+    image: "/programs/health.jpg",
     icon: HeartPulse,
     color: "from-[#EA580C] to-[#FB923C]",
     bg: "bg-orange-50",
@@ -34,7 +38,9 @@ export const programs = [
   },
   {
     title: "Child Protection",
-    description: "Safe spaces, counselling, and advocacy that keep every child protected and supported.",
+    description:
+      "Safe spaces, counselling, and advocacy that keep every child protected and supported.",
+    image: "/programs/protection.jpg",
     icon: ShieldCheck,
     color: "from-[#D97706] to-[#F59E0B]",
     bg: "bg-amber-50",
@@ -42,7 +48,9 @@ export const programs = [
   },
   {
     title: "Life Skills",
-    description: "Confidence-building lessons in leadership, communication, and creative futures.",
+    description:
+      "Confidence-building lessons in leadership, communication, and creative futures.",
+    image: "/programs/life-skills.jpg",
     icon: Sparkles,
     color: "from-[#F59E0B] to-[#FBBF24]",
     bg: "bg-amber-50",
@@ -97,29 +105,24 @@ export const stories = [
 
 export const galleryImages = [
   {
-    src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1000&q=80",
+    src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=900&q=80",
     alt: "Children smiling during a classroom activity",
-    className: "md:col-span-2",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=900&q=80",
-    alt: "Volunteer reading with children",
-    className: "md:col-span-1",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=900&q=80",
-    alt: "Children sharing a meal at a community center",
-    className: "md:col-span-1",
   },
   {
     src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80",
     alt: "Children learning with a teacher",
-    className: "md:col-span-2",
   },
   {
     src: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=900&q=80",
     alt: "Art workshop with children",
-    className: "md:col-span-1",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=900&q=80",
+    alt: "Volunteer reading with children",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=900&q=80",
+    alt: "Children sharing a meal at a community center",
   },
 ];
 
@@ -129,18 +132,24 @@ export const testimonials = [
       "The team made my son feel seen, safe, and curious again. Every lesson feels like a celebration.",
     author: "Meera S.",
     role: "Parent",
+    image:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&h=200&q=80",
   },
   {
     quote:
       "I came as a volunteer and left as a family member. The warmth here is unmatched.",
     author: "Daniel K.",
     role: "Volunteer",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&h=200&q=80",
   },
   {
     quote:
       "My classroom now feels like a place of possibility, not pressure. I love seeing children shine.",
     author: "Nadia R.",
     role: "Student",
+    image:
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&h=200&q=80",
   },
 ];
 
