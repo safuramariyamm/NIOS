@@ -24,7 +24,7 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
-        <Link href="#" className="group flex items-center gap-3 text-[#111827]">
+        <Link href="/" className="group flex items-center gap-3 text-[#111827]">
           <motion.div
             whileHover={{ rotate: 12, scale: 1.08 }}
             transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -46,7 +46,7 @@ export function Navbar() {
         </nav>
         <div className="hidden md:block">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
-            <Link href="#volunteer" className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#EA580C] via-[#F97316] to-[#F59E0B] px-5 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(249,115,22,0.32)]">
+            <Link href="/donate" className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#EA580C] via-[#F97316] to-[#F59E0B] px-5 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(249,115,22,0.32)]">
               <Heart className="h-4 w-4 fill-white" /> Donate Now
             </Link>
           </motion.div>
@@ -63,7 +63,7 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <Link href="#volunteer" onClick={() => setOpen(false)} className="rounded-full bg-gradient-to-r from-[#EA580C] to-[#F59E0B] px-4 py-3 text-center font-semibold text-white">
+            <Link href="/donate" onClick={() => setOpen(false)} className="rounded-full bg-gradient-to-r from-[#EA580C] to-[#F59E0B] px-4 py-3 text-center font-semibold text-white">
               Donate Now
             </Link>
           </nav>

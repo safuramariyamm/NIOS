@@ -98,7 +98,7 @@ export function Hero() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
               <Link
-                href="#volunteer"
+                href="/donate"
                 className="group inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#EA580C] via-[#F97316] to-[#F59E0B] px-7 text-sm font-bold text-white shadow-[0_18px_45px_rgba(249,115,22,0.34)] transition duration-300 hover:shadow-[0_22px_55px_rgba(249,115,22,0.42)]"
               >
                 <Heart className="h-4 w-4 fill-white text-white" />
@@ -109,7 +109,7 @@ export function Hero() {
 
             <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
               <Link
-                href="#stories"
+                href="/stories"
                 className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-[#F97316]/15 bg-white/80 px-7 text-sm font-bold text-[#9A3412] shadow-[0_14px_36px_rgba(249,115,22,0.11)] backdrop-blur-xl transition duration-300 hover:border-[#F59E0B]/50 hover:bg-white"
               >
                 <PlayCircle className="h-5 w-5 text-[#F97316]" />

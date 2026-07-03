@@ -1,10 +1,11 @@
 import { BookOpen, HeartPulse, ShieldCheck, Sparkles, Compass, HandHeart, GraduationCap, Baby, Sparkles as SparkleIcon, Star } from "lucide-react";
 
 export const navItems = [
-  { label: "About", href: "#mission" },
-  { label: "Programs", href: "#programs" },
-  { label: "Stories", href: "#stories" },
-  { label: "Volunteer", href: "#volunteer" },
+  { label: "About", href: "/about" },
+  { label: "Programs", href: "/programs" },
+  { label: "Stories", href: "/stories" },
+  { label: "Volunteer", href: "/volunteer" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const stats = [
@@ -78,6 +79,20 @@ export const stories = [
       "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80",
     tag: "Creative learning",
   },
+  {
+    title: "A shared meal brought a whole classroom together",
+    description: "Daily nutrition support meant children could focus on learning instead of hunger, and lunchtime became the happiest hour of the day.",
+    image:
+      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
+    tag: "Health & nutrition",
+  },
+  {
+    title: "From shy first-grader to confident storyteller",
+    description: "Small classroom sizes and patient mentors gave Priya the courage to raise her hand — now she leads morning assembly stories.",
+    image:
+      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=800&q=80",
+    tag: "Student spotlight",
+  },
 ];
 
 export const galleryImages = [
@@ -142,4 +157,84 @@ export const trustBadges = [
   { icon: GraduationCap, label: "Future-ready" },
   { icon: SparkleIcon, label: "Joyful learning" },
   { icon: Star, label: "Trusted by families" },
+];
+
+export const donationTiers = [
+  {
+    amount: "₹500",
+    frequency: "one-time",
+    impact: "Provides a full month of notebooks, pencils, and learning materials for one child.",
+    highlighted: false,
+  },
+  {
+    amount: "₹1,500",
+    frequency: "one-time",
+    impact: "Covers nutritious daily meals for one child for an entire month.",
+    highlighted: true,
+  },
+  {
+    amount: "₹5,000",
+    frequency: "one-time",
+    impact: "Sponsors a full term of classes, mentorship, and health check-ups for one child.",
+    highlighted: false,
+  },
+  {
+    amount: "₹12,000",
+    frequency: "one-time",
+    impact: "Funds a full year of education, meals, and protection support for one child.",
+    highlighted: false,
+  },
+];
+
+export const donationBreakdown = [
+  { label: "Classroom education", percent: 45 },
+  { label: "Nutrition & health", percent: 30 },
+  { label: "Child protection", percent: 15 },
+  { label: "Community operations", percent: 10 },
+];
+
+export const contactChannels = [
+  {
+    icon: "Mail",
+    label: "Email us",
+    value: "hello@brightpath.org",
+    href: "mailto:hello@brightpath.org",
+  },
+  {
+    icon: "Phone",
+    label: "Call us",
+    value: "+91 98765 43210",
+    href: "tel:+919876543210",
+  },
+  {
+    icon: "MapPin",
+    label: "Visit us",
+    value: "14 Sunshine Lane, Delhi, India",
+    href: "https://maps.google.com",
+  },
+  {
+    icon: "Clock",
+    label: "Office hours",
+    value: "Mon–Sat, 9:00 AM – 6:00 PM",
+    href: undefined,
+  },
+];
+
+export const faqs = [
+  {
+    question: "How do I know my donation is being used well?",
+    answer: "Every center publishes a quarterly impact report, and donors receive updates showing exactly how funds were used for education, nutrition, and protection programs.",
+  },
+  {
+    question: "Can I volunteer without teaching experience?",
+    answer: "Yes! We welcome mentors, event organizers, and fundraisers. We match you with a role that fits your skills and schedule, with training provided.",
+  },
+  {
+    question: "Do you offer scholarships for older students?",
+    answer: "Yes, our life-skills and scholarship program supports students through secondary school and into vocational training or college.",
+  },
+  {
+    question: "Is my donation tax-deductible?",
+    answer: "Yes, BrightPath Foundation is a registered nonprofit and all donations are eligible for tax deductions under applicable local law.",
+  },
 ];

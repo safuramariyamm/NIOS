@@ -29,7 +29,7 @@ export function StoryCard({ title, description, image, tag, featured = false }: 
       <div className="p-6 sm:p-8">
         <h3 className="mt-3 text-2xl font-semibold text-[#111827]">{title}</h3>
         <p className="mt-3 text-base leading-7 text-[#6B7280]">{description}</p>
-        <Link href="#newsletter" className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#EA580C] transition hover:text-[#C2410C]">
+        <Link href="/stories" className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#EA580C] transition hover:text-[#C2410C]">
           Read Story <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       </div>

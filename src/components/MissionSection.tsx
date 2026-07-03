@@ -24,7 +24,7 @@ export function MissionSection() {
           <div className="mt-6 h-1.5 w-24 rounded-full bg-gradient-to-r from-[#F97316] to-[#FBBF24]" />
           <p className="mt-6 text-lg leading-8 text-[#6B7280]">BrightPath Learning Center partners with communities to provide free education, nutrition, and a protective environment where children can discover their potential without fear.</p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="#programs" className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#EA580C] via-[#F97316] to-[#F59E0B] px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(249,115,22,0.3)] transition hover:shadow-[0_20px_50px_rgba(249,115,22,0.38)]">
+            <Link href="/programs" className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#EA580C] via-[#F97316] to-[#F59E0B] px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(249,115,22,0.3)] transition hover:shadow-[0_20px_50px_rgba(249,115,22,0.38)]">
               Explore our programs <ArrowRight className="h-4 w-4" />
             </Link>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#FDE9D8] bg-[#FFF7ED] px-5 py-3 text-sm font-medium text-[#9A3412]">
