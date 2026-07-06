@@ -6,6 +6,8 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Heart, PlayCircle, Sparkles, Star } from "lucide-react";
 import { AnimatedDoodle } from "@/components/AnimatedDoodle";
+import { HeroStat } from "@/components/HeroStat";
+import { stats } from "@/data/siteContent";
 
 const volunteerAvatars = [
   { initials: "AM", className: "bg-[#F97316] text-white" },
@@ -137,6 +139,17 @@ export function Hero() {
             </motion.div>
           </div>
 
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-9 flex max-w-xl flex-wrap gap-x-8 gap-y-5 rounded-3xl border border-white/60 bg-white/50 px-6 py-5 shadow-[0_16px_40px_rgba(154,52,18,0.08)] backdrop-blur-xl"
+          >
+            {stats.map((stat, index) => (
+              <HeroStat key={stat.label} value={stat.value} label={stat.label} delay={0.35 + index * 0.08} />
+            ))}
+          </motion.div>
+
           <div className="mt-7 flex flex-wrap items-center gap-4">
             <div className="flex -space-x-3">
               {volunteerAvatars.map((avatar) => (
@@ -165,8 +178,18 @@ export function Hero() {
           transition={{ duration: 0.75, delay: 0.12, ease: "easeOut" }}
           className="relative z-10 flex min-h-[430px] items-center justify-center lg:min-h-[590px]"
         >
-          <div className="absolute h-[84%] w-[84%] rounded-full bg-[#F97316]/14 blur-3xl" aria-hidden />
-          <div className="absolute h-[68%] w-[68%] translate-x-8 translate-y-8 rounded-full bg-[#FBBF24]/22 blur-3xl" aria-hidden />
+          <motion.div
+            aria-hidden
+            className="absolute h-[84%] w-[84%] rounded-full bg-[#F97316]/14 blur-3xl"
+            animate={{ x: [0, 18, -12, 0], y: [0, -14, 10, 0], scale: [1, 1.06, 0.97, 1] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            aria-hidden
+            className="absolute h-[68%] w-[68%] translate-x-8 translate-y-8 rounded-full bg-[#FBBF24]/22 blur-3xl"
+            animate={{ x: [8, -10, 16, 8], y: [8, 16, -6, 8], scale: [1, 0.94, 1.05, 1] }}
+            transition={{ duration: 17, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          />
           <AnimatedDoodle type="spark" className="right-[9%] top-[13%] h-12 w-12 text-[#FBBF24]/70" offset={{ x: pointer.x * 7, y: pointer.y * 4 }} delay={0.1} />
           <AnimatedDoodle type="star" className="left-[8%] top-[27%] h-12 w-12 text-white/85" offset={{ x: pointer.x * 6, y: pointer.y * 4 }} delay={0.18} />
           <AnimatedDoodle type="pencil" className="bottom-[22%] left-[10%] h-16 w-16 -rotate-12 text-[#F97316]/55" offset={{ x: pointer.x * 8, y: pointer.y * 5 }} delay={0.24} />
@@ -214,10 +237,12 @@ export function Hero() {
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#F97316] to-[#FBBF24] text-white shadow-inner">
                 <Heart className="h-5 w-5 fill-white" />
               </div>
-              <div>
-                <p className="text-sm font-bold leading-none text-[#1E293B]">20,000+ children</p>
-                <p className="mt-1 text-xs text-[#64748B]">supported with care</p>
-              </div>
+              <HeroStat
+                value={stats[0].value}
+                label="children supported"
+                valueClassName="text-sm font-bold leading-none text-[#1E293B]"
+                labelClassName="mt-1 text-xs font-normal normal-case tracking-normal text-[#64748B]"
+              />
             </motion.div>
 
             <motion.div
@@ -226,9 +251,16 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.65 }}
               className="absolute -right-3 top-6 z-20 rounded-2xl border border-white/70 bg-white/85 px-4 py-2.5 shadow-[0_18px_40px_rgba(154,52,18,0.14)] backdrop-blur-xl sm:-right-6"
             >
-              <p className="flex items-center gap-1 text-sm font-bold text-[#9A3412]">
-                <Sparkles className="h-4 w-4 text-[#F97316]" /> 98% joy rate
-              </p>
+              <div className="flex items-center gap-1.5">
+                <Sparkles className="h-4 w-4 shrink-0 text-[#F97316]" />
+                <HeroStat
+                  value="98%"
+                  label="joy rate"
+                  className="flex items-baseline gap-1"
+                  valueClassName="text-sm font-bold text-[#9A3412]"
+                  labelClassName="text-sm font-bold text-[#9A3412]"
+                />
+              </div>
             </motion.div>
           </motion.div>
           <div className="absolute bottom-0 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-full bg-white/70 px-3 py-2 shadow-[0_12px_30px_rgba(154,52,18,0.12)] backdrop-blur-xl">
